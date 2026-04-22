@@ -12,17 +12,29 @@ class ArticlesController extends Controller
     return view('articles.home', compact('articles'));
 }
 
+   public function view(article $article)
+   {
+    return view('articles.view',compact('article'));
+   }
+
 public function addnewarticle(Request $request)
 {
     $path = $request->file('Image')->store('articles', 'public');
 
     Article::create([
         'Title' => $request->Title,
+        'ShowDescription' => $request->ShowDescription,
         'Text' => $request->Text,
         'Image' => $path
     ]);
 
     return redirect()->route('articles.home');
+}
+
+
+public function create()
+{
+    return view('articles.add');
 }
 
 public function edit(Article $article)
@@ -34,6 +46,7 @@ public function update(Request $request, Article $article)
 {
     $data = [
         'Title' => $request->Title,
+        'ShowDescription' => $request->ShowDescription,
         'Text' => $request->Text,
     ];
 

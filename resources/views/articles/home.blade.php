@@ -1,60 +1,57 @@
-@extends('layouts.app')
+<x-app-layout>
+    <div style="padding:5px;">
+        <h1 class="font-bold text-3xl mb-4">Articles</h1>
 
-@section('content')
-
-
-        <h1>Articles</h1>
-
-        <button onclick="window.location='{{ route('articles.create') }}'" class="btn-edit" style="margin-bottom: 10px;">Add Article</button>
-
-    
-     <table border="1" width="100%" cellpadding="10">
-        <tr>        
-            <th>ID</th>
-            <th>Title</th>
-            <th>Text</th>
-            <th>Image</th>
+        <a href="{{ route('articles.create') }}"
+           style="background:green;color:white;padding:10px;border-radius:5px;display:inline-block;margin-bottom:15px;">
+            Add Article
+        </a>
+ <div class="overflow-x-auto bg-white shadow rounded-lg">
+        <table border="5" width="100%" cellpadding="10" style="background:white;border-collapse:collapse;">
+            <thead class="bg-gray-200">
+    <tr class="border-b-4 border-black">
+        <th>ID</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Image</th>
             <th>Actions</th>
-            <th>Created_at</th>
-            <th>Updated_at</th>
-            
-        </tr>
-         @foreach($articles as $article)
-        <tr>
-            <td>{{$article->id}}</td>
-           <td>{{$article->Title}}</td>
-           <td>{{ $article->Text}}</td>
-           <td>
-            <img src="{{ asset('storage/' . $article->Image) }}" width="80">
-           </td>
-       <td>
-    <div style="display: flex; gap: 10px; align-items: center;">
+                <th>Created_at</th>
+                <th>Updated_at</th>
+    </tr>
+</thead>
         
-        <button onclick="window.location='{{ route('articles.edit', $article) }}'" class="btn-edit">Edit</button>
+            
 
-        <form action="{{ route('articles.delete', $article) }}" method="post" style="margin: 0;">
-            @csrf
-            @method('delete')    
-            <button type="submit" class="btn-delete">Delete</button>
-        </form>
+            
+            @foreach($articles as $article)
+            <tr>
+                <td class="text-center">{{ $article->id }}</td>
+                <td class="text-center">{{ $article->Title }}</td>
+                <td class="text-center">{{ $article->ShowDescription }}</td>
+                <td>
+                    @if(Str::startsWith($article->Image, 'http'))
+    <img src="{{ $article->Image }}" width="300">
+@else
+    <img src="{{ asset('storage/' . $article->Image) }}" width="300">
+@endif
+                </td>
+            <td>
+                <div style="display: flex; flex-direction: row;">
+                    <button onclick="window.location='{{ route('articles.view',$article) }}'" class="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded">View</button>
+                    <button onclick="window.location='{{ route('articles.edit',$article) }}'" class="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded">Edit</buttvon>
+                    <form action="{{ route('articles.delete',$article) }}" method="post">
+                        @csrf
+                        @method('delete')
+                        <button class="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded" type="submit">Delete</button>
+                    </form>
+                </div>
+            </td>
+            <td>{{ $article->created_at }}</td>
+            <td>{{ $article->updated_at }}</td>
 
+            </tr>
+            @endforeach
+        </table>
     </div>
-</td>
-           <td>{{ $article->created_at }}</td>
-           <td>{{ $article->updated_at }}</td>
-
-        </tr>
-         @endforeach
-
-     </table>
-
-@endsection
-
-
-
-
-
-   
-
-</body>
-</html>
+    </div>
+</x-app-layout>

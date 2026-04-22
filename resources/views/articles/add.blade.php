@@ -1,6 +1,4 @@
-@extends('layouts.app')
 
-@section('content')
 
 <style>
     h2 {
@@ -47,7 +45,12 @@
         @error('Title')
             <div style="color:red">{{ $message }}</div>
         @enderror
-
+         
+        <input type="text" name="ShowDescription" placeholder="Enter Description to be shown: " value="{{ old('ShowDescription') }}">
+        @error('ShowDescription')
+            <div style="color:red">{{ $message }}</div>
+        @enderror
+         
         <textarea name="Text" placeholder="Write your article...">{{ old('Text') }}</textarea>
         @error('Text')
             <div style="color:red">{{ $message }}</div>
@@ -58,10 +61,9 @@
             <div style="color:red">{{ $message }}</div>
         @enderror
 
-        <button type="submit">Publish Article</button>
+        <button type="submit" style="background:purple; color:white; padding: 10px; border: radius 5%;">Publish Article</button>
 
     </form>
 
 </div>
 
-@endsection
