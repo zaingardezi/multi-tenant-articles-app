@@ -41,12 +41,14 @@
 </button>
 
 <!-- Edit -->
+ @can('edit users')
 <button 
     onclick="window.location='{{ route('users.edit',$user) }}'"
     class="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded">
     Edit
 </button>
-
+@endcan()
+@can('delete users')
 <!-- Delete -->
 <form action="{{ route('users.delete',$user) }}" method="POST">
     @csrf
@@ -58,6 +60,7 @@
         Delete
     </button>
 </form>
+@endcan
 
                             </div>
                         </td>

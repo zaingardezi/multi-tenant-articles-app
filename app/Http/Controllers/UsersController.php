@@ -2,23 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Services\UserService;
+use App\Http\Requests\StoreUserRequest;
+
 
 class UsersController extends Controller
 {
-    public function usershomepage()
+    public function usershomepage(UserService $userservice)
     {
-        $users=User::all();
+        $users=$userservice->getUsers();
         return view('articles.users',compact('users'));
     }
 
-    public function addnewuser(Request $request)
-    {
-        $this->createvalidate($request);  
-        User::create($request->all());
-        return redirect()->route('users.homepage');
-    }
+public function addnewuser(StoreUserRequest $request, UserService $userService)
+{
+    $userService->createUser($request->validated());
+    return redirect()->route('users.homepage');
+}
 
     public function usersview(User $user)
     {
@@ -30,10 +33,10 @@ class UsersController extends Controller
 return view('articles.userseditpage',compact('user'));
     }
 
-    public function updateuser(Request $request, User $user)
+    public function updateuser(UpdateUserRequest $request, User $user, UserService $userservice)
     {
-        $this->updatevalidate($request,$user);   
-        $user->update($request->all());
+           
+        $userservice->updateUser($request->validated(),$user);
         return redirect()->route('users.homepage');
     }
         public function usersdelete(User $user)
@@ -42,27 +45,6 @@ return view('articles.userseditpage',compact('user'));
          return redirect()->route('users.homepage');
         }
 
-        public function createvalidate(Request $request)
-    {
-       $request->validate([
-      'name' => 'required|alpha',
-      'email' => 'required|email|unique:users,email',
-      'phone' => 'required|numeric',
-      'age'=> 'required|numeric|min:1|max:119'
-     ]);
-    }
-
-
-
-   public function updatevalidate(Request $request, User $user)
-    {
-       $request->validate([
-      'name' => 'required|alpha',
-      'email' => 'required|email|unique:users,email,' . $user->id,
-      'phone' => 'required|numeric',
-      'age'=>'required|numeric|min:1|max:119'
-     ]);
-         
-    }
+  
     
 }

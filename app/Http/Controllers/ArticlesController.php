@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\ArticleService;
 use Illuminate\Http\Request;
 use App\Models\Article;
+
 class ArticlesController extends Controller
 {
-   public function home()
+   public function home(ArticleService $articleService)
 {
-    $articles = Article::all();
+    $articles=$articleService->getArticles();
     return view('articles.home', compact('articles'));
 }
 
@@ -17,16 +19,22 @@ class ArticlesController extends Controller
     return view('articles.view',compact('article'));
    }
 
-public function addnewarticle(Request $request)
+public function addnewarticle(Request $request, ArticleService $articleService)
 {
     $path = $request->file('Image')->store('articles', 'public');
+    
 
-    Article::create([
+    $data=[
         'Title' => $request->Title,
         'ShowDescription' => $request->ShowDescription,
         'Text' => $request->Text,
-        'Image' => $path
-    ]);
+        
+    ];
+    $data['Image']=$path;
+    $articleService->createArticle($data);
+
+
+
 
     return redirect()->route('articles.home');
 }
@@ -42,7 +50,7 @@ public function edit(Article $article)
     return view('articles.edit', compact('article'));
 }
 
-public function update(Request $request, Article $article)
+public function update(Request $request, Article $article, ArticleService $articleService)
 {
     $data = [
         'Title' => $request->Title,
@@ -53,8 +61,8 @@ public function update(Request $request, Article $article)
     if ($request->hasFile('Image')) {
         $data['Image'] = $request->file('Image')->store('articles', 'public');
     }
-
-    $article->update($data);
+    $articleService->updateArticle($data,$article);
+    
 
     return redirect()->route('articles.home');
 }

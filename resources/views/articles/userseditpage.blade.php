@@ -17,10 +17,17 @@
             <label for="name">Name:</label>
             <input type="text" name="name" id="name" value="{{ $user->name }}">
             </div>
-            <div class="ml-4">
-            <label for="email">Email:</label>
-            <input type="email" name="email" id="email" value="{{ $user->email }}">
-            </div>
+          @can('edit users')
+    <div class="ml-4">
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" value="{{ $user->email }}">
+    </div>
+@else
+    <div class="ml-4">
+        <label for="email">Email:</label>
+        <input type="email" disabled name="email" id="email" value="{{ $user->email }}">
+    </div>
+@endcan
             <div class="ml-4">
             <label for="phone">Phone:</label>
             <input type="number" name="phone" id="phone" value="{{ $user->phone }}">

@@ -28,7 +28,7 @@
             <a href="{{ route('articles.dashboard') }}" class="block p-2 rounded hover:bg-gray-200">Dashboard</a>
             <a href="{{ route('users.homepage') }}" class="block p-2 rounded hover:bg-gray-200">Users</a>
             <a href="{{ route('articles.home') }}" class="block p-2 rounded hover:bg-gray-200">Articles</a>
-            <a href="{{ route('profile.update') }}" class="block p-2 rounded hover:bg-gray-200" >Settings</a>
+            <a href="{{route('profile.edit', auth()->id())}}"  class="block p-2 rounded hover:bg-gray-200" >Settings</a>
 
             <form action="{{ route('logout') }}" method="post">
                 @csrf

@@ -12,6 +12,7 @@
             <p><strong>Email:</strong> {{ $user->email }}</p>
             <p><strong>Phone:</strong> {{ $user->phone }}</p>
             <p><strong>Age:</strong> {{ $user->age }}</p>
+            <p><strong>Role:</strong> {{ strtoupper($user->roles->pluck('name')->join(', ')) }}</p>
             <button class="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded mt-2" onclick="window.location='{{ route('users.homepage') }}'">Back to Users</button>
         </div>
          </div>
