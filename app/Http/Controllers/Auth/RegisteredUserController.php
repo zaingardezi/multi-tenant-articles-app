@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
-
+use App\Events\UserCreated;
 class RegisteredUserController extends Controller
 {
     /**
@@ -46,8 +46,8 @@ class RegisteredUserController extends Controller
     'password' => Hash::make($request->password),
     'age'=> $request->age,
 ]);
-
-        event(new Registered($user));
+        // event(new Registered($user));
+        event(new UserCreated($user));
         return redirect(route('login', absolute: false));
     }
 }

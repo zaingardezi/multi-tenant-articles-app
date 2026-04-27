@@ -48,6 +48,18 @@
                     </p>
                 </div>
 
+                @role('superadmin')
+    <div class="bg-white shadow rounded-lg p-4 mt-4">
+        <h2 class="text-xl font-bold mb-3">Notifications</h2>
+
+        @foreach(auth()->user()->notifications as $notification)
+            <div class="p-3 border-b">
+                <p>{{ $notification->data['message'] }}</p>
+            </div>
+        @endforeach
+    </div>
+@endrole
+
             </div>
         </div>
     </div>

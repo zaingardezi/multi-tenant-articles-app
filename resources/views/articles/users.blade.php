@@ -41,7 +41,7 @@
 </button>
 
 <!-- Edit -->
- @can('edit users')
+@can('edit users')
 <button 
     onclick="window.location='{{ route('users.edit',$user) }}'"
     class="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded">

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
-
+use App\Events\UserUpdated;
 class ProfileController extends Controller
 {
    
@@ -22,11 +22,10 @@ class ProfileController extends Controller
 
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
-
- 
-        $request->user()->save();
-
+        $user = $request->user();
+        $user->fill($request->validated());
+        $user->save();
+        event(new UserUpdated($user));
         return Redirect::route('profile.edit', auth()->id())->with('status', 'profile-updated');
     }
 
