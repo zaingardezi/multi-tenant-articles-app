@@ -42,14 +42,15 @@
                 <button onclick="window.location='{{ route('articles.view',$article) }}'" class="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded">View</button>
                 @endcan    
                 @can('edit articles')
-                <button onclick="window.location='{{ route('articles.edit',$article) }}'" class="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded">Edit</buttvon>
+                <button onclick="window.location='{{ route('articles.edit',$article) }}'" class="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded">Edit</button>
                 @endcan    
                 @can('delete articles')
-                    <form action="{{ route('articles.delete',$article) }}" method="post">
-                        @csrf
-                        @method('delete')
-                        <button class="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded" type="submit">Delete</button>
-                    </form>
+                 <button
+    type="button"
+    onclick="openDeleteModal('{{ route('articles.delete', $article) }}')"
+    class=" bg-gray-500 hover:bg-red-600 text-white px-3 py-1 rounded">
+    Delete
+</button>
                     @endcan
                 </div>
             </td>
@@ -61,4 +62,49 @@
         </table>
     </div>
     </div>
+    <!-- Delete Modal -->
+<div id="deleteModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96 text-center">
+
+        <h2 class="text-lg font-bold mb-4">Confirm Deletion</h2>
+        <p class="mb-6 text-gray-600">Are you sure you want to delete this article?</p>
+
+        <form id="deleteForm" method="POST">
+            @csrf
+            @method('delete')
+
+            <div class="flex justify-center gap-4">
+
+                <button type="button"
+                        onclick="closeDeleteModal()"
+                        class="bg-gray-400 hover: bg-gray-500 text-white px-4 py-2 rounded">
+                    Cancel
+                </button>
+
+                <button type="submit"
+                        class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded">
+                    Yes, Delete
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+</div>
 </x-app-layout>
+
+
+
+
+<script>
+    function openDeleteModal(actionUrl) {
+        document.getElementById('deleteForm').action = actionUrl;
+        document.getElementById('deleteModal').classList.remove('hidden');
+    }
+
+    function closeDeleteModal() {
+        document.getElementById('deleteModal').classList.add('hidden');
+    }
+</script>

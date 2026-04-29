@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AuthorsController;
+use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\TagsController;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
@@ -38,4 +41,57 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('profile', ProfileController::class)
         ->only(['edit', 'update', 'destroy']);
+
+    Route::get('/authors',[AuthorsController::class,'view'])->name('authors.home');  
+    
+    
+
+
+
+
+
+
+    Route::get('/categories',[CategoriesController::class,'view'])->name('categories.home');    
+Route::get('/categories/create', [CategoriesController::class, 'createcategory'])->name('categories.create');
+Route::post('/categories', [CategoriesController::class, 'addcategory'])->name('categories.add');
+
+Route::get('/categories/{category}', [CategoriesController::class, 'viewcategory'])->name('categories.viewcategory');
+
+Route::get('/categories/{category}/edit', [CategoriesController::class, 'editcategory'])->name('categories.edit');
+Route::put('/categories/{category}', [CategoriesController::class, 'updatecategory'])->name('categories.update');
+
+Route::delete('/categories/{category}', [CategoriesController::class, 'deletecategory'])->name('categories.delete');
+
+
+
+
+Route::get('/tags', [TagsController::class, 'view'])->name('tags.home');
+
+Route::get('/tags/create', [TagsController::class, 'createtag'])->name('tags.create');
+Route::post('/tags', [TagsController::class, 'addtag'])->name('tags.add');
+
+Route::get('/tags/{tag}', [TagsController::class, 'viewtag'])->name('tags.viewtag');
+
+Route::get('/tags/{tag}/edit', [TagsController::class, 'edittag'])->name('tags.edit');
+Route::put('/tags/{tag}', [TagsController::class, 'updatetag'])->name('tags.update');
+
+Route::delete('/tags/{tag}', [TagsController::class, 'deletetag'])->name('tags.delete');
+
+
+    
+
+
+
+Route::get('/authors', [AuthorsController::class, 'view'])->name('authors.home');
+
+Route::get('/authors/create', [AuthorsController::class, 'createauthor'])->name('authors.create');
+Route::post('/authors', [AuthorsController::class, 'addauthor'])->name('authors.add');
+
+Route::get('/authors/{author}', [AuthorsController::class, 'viewauthor'])->name('authors.viewauthor');
+
+Route::get('/authors/{author}/edit', [AuthorsController::class, 'editauthor'])->name('authors.edit');
+Route::put('/authors/{author}', [AuthorsController::class, 'updateauthor'])->name('authors.update');
+
+Route::delete('/authors/{author}', [AuthorsController::class, 'deleteauthor'])->name('authors.delete');
+
 });

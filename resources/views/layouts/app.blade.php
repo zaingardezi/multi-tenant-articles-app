@@ -28,6 +28,11 @@
             <a href="{{ route('articles.dashboard') }}" class="block p-2 rounded hover:bg-gray-200">Dashboard</a>
             <a href="{{ route('users.homepage') }}" class="block p-2 rounded hover:bg-gray-200">Users</a>
             <a href="{{ route('articles.home') }}" class="block p-2 rounded hover:bg-gray-200">Articles</a>
+            <a href="{{ route('authors.home') }}" class="block p-2 rounded hover:bg-gray-200">Authors</a>
+            <a href="{{ route('categories.home') }}" class="block p-2 rounded hover:bg-gray-200">Categories</a>
+            <a href="{{ route('tags.home') }}" class="block p-2 rounded hover:bg-gray-200">Tags</a>
+
+
             <a href="{{route('profile.edit', auth()->id())}}"  class="block p-2 rounded hover:bg-gray-200" >Settings</a>
 
             <form action="{{ route('logout') }}" method="post">

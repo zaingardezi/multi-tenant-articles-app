@@ -11,6 +11,10 @@
             <p><strong>Title:</strong> {{ $article->Title }}</p>
             <p><strong>Short Description:</strong> {{ $article->ShowDescription }}</p>
             <p><strong>Text:</strong> {{ $article->Text }}</p>
+            <p><strong>Author:</strong>{{ $article->authors->pluck('name')->implode(', ')}}</p>
+            <p><strong>Tag:</strong>{{ $article->tags->pluck('name')->implode(', ') }}</p>
+            <p><strong>Category:</strong>{{ $article->categories->pluck('name')->implode(', ') }}</p>
+
             <p><Strong>Image:</Strong>
                                 @if(Str::startsWith($article->Image, 'http'))
     <img src="{{ $article->Image }}" width="300">
@@ -18,7 +22,7 @@
     <img src="{{ asset('storage/' . $article->Image) }}" width="300">
 @endif
 </p>
-            <button class="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded mt-2" onclick="window.location='{{ route('articles.home') }}'">Back to Users</button>
+            <button class="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded mt-2" onclick="window.location='{{ route('articles.home') }}'">Back to Articles</button>
         </div>
          </div>
          </div>

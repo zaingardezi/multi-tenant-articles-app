@@ -1,68 +1,69 @@
 <x-app-layout>
     <div class="p-1">
 
-        <h1 class="font-bold text-3xl mb-4">Users</h1>
-
+        <h1 class="font-bold text-3xl mb-4">Authors</h1>
+            <a href="{{ route('authors.create') }}"
+           style="background:green;color:white;padding:10px;border-radius:5px;display:inline-block;margin-bottom:15px;">
+            Add Author
+        </a>
         <div class="overflow-x-auto bg-white shadow rounded-lg">
             <table border="5" width="100%" cellpadding="10" style="background:white;border-collapse:collapse;">
 
                 <thead class=" bg-info">
                     <tr>
-                        <th class="p-3 text-center">ID</th>
-                        <th class="p-3 text-center">Name</th>
-                        <th class="p-3 text-center">Email</th>
-                        <th class="p-3 text-center">Phone</th>
-                        <th class="p-3 text-center">Age</th>
-                        <th class="p-3 text-center">Actions</th>
-                        <th class="p-3 text-center">Created_at</th>
-                        <th class="p-3 text-center">Updated_at</th>
+                        <th class="p-2 text-center">ID</th>
+                        <th class="p-2 text-center">Name</th>
+                        <th class="p-2 text-center">Slug</th>
+                        <th class="p-2">Actions</th>
+                        <th class="p-2 text-center">Created_at</th>
+                        <th class="p-2 text-center">Updated_at</th>
 
                     </tr>
                 </thead>
 
                 <tbody>
-                    @foreach($users as $user)
+                    @foreach($authors as $author)
                     <tr class="border-t hover:bg-gray-50">
 
-                        <td class="p-3 text-center">{{ $user->id }}</td>
-                        <td class="p-3 text-center font-medium">{{ $user->name }}</td>
-                        <td class="p-3 text-center">{{ $user->email }}</td>
-                        <td class="p-3 text-center">{{ $user->phone }}</td>
-                        <td class="p-3 text-center">{{ $user->age }}</td>
+                        <td class="p-3 text-center">{{ $author->id }}</td>
+                        <td class="p-3 text-center font-medium">{{ $author->name }}</td>
+                        <td class="p-3 text-center">{{ $author->slug }}</td>
+                        
 
                         <td class="p-3">
                             <div class="flex justify-center gap-2">
 
                                 <!-- View -->
                                <button 
-    onclick="window.location='{{ route('users.view',$user) }}'"
+    onclick="window.location='{{ route('authors.viewauthor',$author) }}'"
     class="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded">
     View
 </button>
 
 <!-- Edit -->
-@can('edit users')
+
 <button 
-    onclick="window.location='{{ route('users.edit',$user) }}'"
+    onclick="window.location='{{ route('authors.edit',$author) }}'"
     class="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded">
     Edit
 </button>
-@endcan()
-@can('delete users')
-<!-- Delete -->
 
-<button
+
+<!-- Delete -->
+    
+    <button
     type="button"
-    onclick="openDeleteModal('{{ route('users.delete', $user) }}')"
+    onclick="openDeleteModal('{{ route('authors.delete', $author) }}')"
     class=" bg-gray-500 hover:bg-red-600 text-white px-3 py-1 rounded">
     Delete
 </button>
-@endcan
+
+
 
                             </div>
                         </td>
-                        <td class=" text-center">{{ $user->created_at }}</td>
-                        <td class=" text-center">{{ $user->updated_at }}</td>
+                        <td class=" text-center">{{ $author->created_at }}</td>
+                        <td class=" text-center">{{ $author->updated_at }}</td>
 
                     </tr>
                     @endforeach
@@ -72,7 +73,7 @@
         </div>
 
     </div>
-    <div id="deleteModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+ <div id="deleteModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
     
     <div class="bg-white p-6 rounded-lg shadow-lg w-96 text-center">
 
