@@ -40,7 +40,7 @@
            class="text-sm text-gray-600 hover:text-gray-900 underline">
             {{ __('Forgot your password?') }}
         </a>
-    @endif 
+    @endif
 
     <x-primary-button>
         {{ __('Log in') }}
