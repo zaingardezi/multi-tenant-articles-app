@@ -29,7 +29,7 @@
                 <div class="bg-white rounded-3xl shadow-lg p-8 hover:shadow-2xl transition"
                     style="display: flex; flex-direction: :row;">
                     <h3 class="text-3xl font-bold text-bg-dark mb-4">Email:</h3>
-                    <p class="text-xl font-semibold text-gray-700 break-all ml-4">
+                    <p class="text-xl font-semibold text-gray-700 break-all mt-1 ml-4">
                         {{ Auth::user()->email }}
                     </p>
                 </div>
