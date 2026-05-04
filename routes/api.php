@@ -2,19 +2,19 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ArticlesController;
+use App\Http\Controllers\ArticlesApiController;
 
 
 
-Route::get('/articles', [ArticlesController::class, 'index']);
+Route::get('/articles', [ArticlesApiController::class, 'index']);
 
-Route::get('/articles', [ArticlesController::class, 'articlesSearch']);
+Route::get('/articles/', [ArticlesApiController::class, 'search']);
 
-Route::get('/articles/{article}/viewarticle', [ArticlesController::class, 'viewArticleApi']);
+Route::get('/articles/{article}/viewarticle', [ArticlesApiController::class, 'show']);
 
-route::post('/articles/post', [ArticlesController::class, 'addArticleApi']);
+Route::post('/articles/post', [ArticlesApiController::class, 'store']);
 
-route::put('/articles/{article}/update', [ArticlesController::class, 'updateArticleApi']);
+Route::put('/articles/{article}/update', [ArticlesApiController::class, 'update']);
 
-route::delete('/articles/{article}/delete', [ArticlesController::class, 'deleteArticleApi']);
+Route::delete('/articles/{article}/delete', [ArticlesApiController::class, 'destroy']);
 

@@ -30,19 +30,18 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/users/{user}/delete', [UsersController::class, 'usersdelete'])->name('users.delete');
 
     Route::get('/articles/home', [ArticlesController::class, 'home'])->name('articles.home');
-    Route::get('/articles/{article}/view', [ArticlesController::class, 'view'])->name('articles.view');
+    Route::get('/articles/{article}/view', [ArticlesController::class, 'show'])->name('articles.view');
     Route::get('/articles/create', [ArticlesController::class, 'create'])->name('articles.create');
-    Route::post('/articles/add', [ArticlesController::class, 'addnewarticle'])->name('articles.add');
+    Route::post('/articles/add', [ArticlesController::class, 'store'])->name('articles.add');
     Route::get('/articles/{article}/edit', [ArticlesController::class, 'edit'])->name('articles.edit');
     Route::put('/articles/{article}/update', [ArticlesController::class, 'update'])->name('articles.update');
-    Route::delete('/articles/{article}/delete', [ArticlesController::class, 'delete'])->name('articles.delete');
+    Route::delete('/articles/{article}/delete', [ArticlesController::class, 'destroy'])->name('articles.delete');
 
     Route::get('/dashboard', fn () => view('dashboard'))->name('articles.dashboard');
 
     Route::resource('profile', ProfileController::class)
         ->only(['edit', 'update', 'destroy']);
 
-    Route::get('/authors',[AuthorsController::class,'view'])->name('authors.home');  
     
     
 
@@ -51,7 +50,7 @@ Route::middleware(['auth'])->group(function () {
 
 
 
-    Route::get('/categories',[CategoriesController::class,'view'])->name('categories.home');    
+Route::get('/categories',[CategoriesController::class,'view'])->name('categories.home');
 Route::get('/categories/create', [CategoriesController::class, 'createcategory'])->name('categories.create');
 Route::post('/categories', [CategoriesController::class, 'addcategory'])->name('categories.add');
 
@@ -83,6 +82,7 @@ Route::delete('/tags/{tag}', [TagsController::class, 'deletetag'])->name('tags.d
 
 
 Route::get('/authors', [AuthorsController::class, 'view'])->name('authors.home');
+
 
 Route::get('/authors/create', [AuthorsController::class, 'createauthor'])->name('authors.create');
 Route::post('/authors', [AuthorsController::class, 'addauthor'])->name('authors.add');

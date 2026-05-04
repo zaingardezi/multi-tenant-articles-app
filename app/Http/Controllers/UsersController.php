@@ -20,7 +20,7 @@ class UsersController extends Controller
     }
 
 public function addnewuser(StoreUserRequest $request, UserService $userService)
-{    
+{
     $userService->createUser($request->validated());
     return redirect()->route('users.homepage');
 }
