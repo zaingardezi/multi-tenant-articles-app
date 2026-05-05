@@ -19,7 +19,7 @@
                                 @if(Str::startsWith($article->Image, 'http'))
     <img src="{{ $article->Image }}" width="300">
 @else
-    <img src="{{ asset('storage/' . $article->Image) }}" width="300">
+    <img src="{{ tenant_asset($article->Image) }}" width="300">
 @endif
 </p>
             <button class="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded mt-2" onclick="window.location='{{ route('articles.home') }}'">Back to Articles</button>

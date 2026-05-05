@@ -45,10 +45,10 @@
 
                 <div style="margin-top:10px;">
                     @if(Str::startsWith($article->Image, 'http'))
-                        <img src="{{ $article->Image }}" width="150" style="border-radius:6px;">
-                    @else
-                        <img src="{{ asset('storage/' . $article->Image) }}" width="150" style="border-radius:6px;">
-                    @endif
+    <img src="{{ $article->Image }}" width="300">
+@else
+    <img src="{{ tenant_asset($article->Image) }}" width="300">
+@endif
                 </div>
             </div>
 

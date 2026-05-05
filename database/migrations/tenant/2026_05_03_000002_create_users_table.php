@@ -10,14 +10,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->integer('phone');
-            $table->string('gender');
-            $table->integer('age');
-            $table->timestamps();
-        });
+    $table->id();
+    $table->string('name');
+    $table->string('email')->unique();
+    $table->string('password');
+    $table->integer('phone');
+    $table->string('gender')->nullable();
+    $table->integer('age')->nullable();
+    $table->timestamp('email_verified_at')->nullable();
+    $table->rememberToken();
+    $table->timestamps();
+});
     }
 
     public function down(): void

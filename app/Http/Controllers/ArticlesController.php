@@ -17,45 +17,31 @@ class ArticlesController extends Controller
 {
     use AuthorizesRequests;
     
-    public function home(ArticleService $articleService)
+public function home(ArticleService $articleService)
 {
-        $this->authorize('viewAny', Article::class);
-        $articles = Cache::remember('home_articles', 300, function () use ($articleService)
-    {
-        return $articleService->getArticles();
-    });
-
-        return view('articles.home', compact('articles'));
+    $this->authorize('viewAny', Article::class);
+    $articles = $articleService->getArticles();
+    return view('articles.home', compact('articles'));
 }
 
-    public function show(Article $article)
+public function show(Article $article)
 {
-        $this->authorize('view', $article);
-        $article = Cache::remember('web_article_' . $article->id, 300, function () use ($article)
-    {
-        return $article->load(['authors', 'tags', 'categories']);
-    });
-        return view('articles.view', compact('article'));
+    $this->authorize('view', $article);
+    $article->load(['authors', 'tags', 'categories']);
+    return view('articles.view', compact('article'));
 }
 
-    private function clearArticleCaches()
-{
-        Cache::forget('home_articles');
-        Cache::forget('articles_all');
-}
 
-    public function edit(Article $article)
+
+ public function edit(Article $article)
 {
-        $this->authorize('update', $article);
-        $article = Cache::remember('edit_article_' . $article->id, 300, function () use ($article)
-    {
-        return $article->load(['tags', 'categories', 'authors']);
-    });
-        return view('articles.edit', [
-          'article' => $article,
-          'authors' => Cache::remember('authors_all', 600, fn() => Author::select('id','name')->get()),
-          'tags' => Cache::remember('tags_all', 600, fn() => Tag::all()),
-          'categories' => Cache::remember('categories_all', 600, fn() => Category::all()),
+    $this->authorize('update', $article);
+    $article->load(['tags', 'categories', 'authors']);
+    return view('articles.edit', [
+        'article' => $article,
+        'authors' => Author::select('id','name')->get(),
+        'tags' => Tag::all(),
+        'categories' => Category::all(),
     ]);
 }
 
@@ -67,20 +53,18 @@ class ArticlesController extends Controller
         $article->authors()->sync($data['author_ids']);
         $article->tags()->sync($data['tag_ids']);
         $article->categories()->sync($data['category_ids']);
-        $this->clearArticleCaches();
         return redirect()->route('articles.home');
 }
 
-    public function create()
+public function create()
 {
-        $this->authorize('create', Article::class);
-        return view('articles.add', [
-          'authors' => Cache::remember('authors_all', 600, fn() => Author::select('id','name')->get()),
-          'tags' => Cache::remember('tags_all', 600, fn() => Tag::all()),
-          'categories' => Cache::remember('categories_all', 600, fn() => Category::all()),
+    $this->authorize('create', Article::class);
+    return view('articles.add', [
+        'authors' => Author::select('id','name')->get(),
+        'tags' => Tag::all(),
+        'categories' => Category::all(),
     ]);
 }
-
     public function update(UpdateArticleRequest $request, Article $article, ArticleService $articleService)
 {
         $data = $request->validated();
@@ -93,10 +77,6 @@ class ArticlesController extends Controller
         $article->authors()->sync($data['author_ids']);
         $article->tags()->sync($data['tag_ids']);
         $article->categories()->sync($data['category_ids']);
-        Cache::forget('article_' . $article->id);
-        Cache::forget('web_article_' . $article->id);
-        Cache::forget('edit_article_' . $article->id);
-        $this->clearArticleCaches();
         return redirect()->route('articles.home');
 }
 
@@ -104,10 +84,6 @@ class ArticlesController extends Controller
 {
         $this->authorize('delete', $article);
         $articleService->deleteArticle($article);
-        Cache::forget('article_' . $article->id);
-        Cache::forget('web_article_' . $article->id);
-        Cache::forget('edit_article_' . $article->id);
-        $this->clearArticleCaches();
         return redirect()->route('articles.home');
 }
 
