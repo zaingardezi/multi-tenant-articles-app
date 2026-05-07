@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->string('Title');
-            $table->string('Text');
+            $table->text('ShowDescription');
+            $table->text('Text');
             $table->string('Image');
             $table->timestamps();
+            
         });
     }
 

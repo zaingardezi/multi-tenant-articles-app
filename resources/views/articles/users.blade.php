@@ -13,6 +13,7 @@
                         <th class="p-3 text-center">Email</th>
                         <th class="p-3 text-center">Phone</th>
                         <th class="p-3 text-center">Age</th>
+                        <th class="p-3 text-center">Role</th>
                         <th class="p-3 text-center">Actions</th>
                         <th class="p-3 text-center">Created_at</th>
                         <th class="p-3 text-center">Updated_at</th>
@@ -29,6 +30,8 @@
                         <td class="p-3 text-center">{{ $user->email }}</td>
                         <td class="p-3 text-center">{{ $user->phone }}</td>
                         <td class="p-3 text-center">{{ $user->age }}</td>
+                        <td class="p-3 text-center"> {{ ucfirst($user->roles->first()?->name ?? 'No Role') }}</td>
+
 
                         <td class="p-3">
                             <div class="flex justify-center gap-2">
@@ -47,7 +50,7 @@
     class="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded">
     Edit
 </button>
-@endcan()
+@endcan
 @can('delete users')
 <!-- Delete -->
 
@@ -77,7 +80,7 @@
     <div class="bg-white p-6 rounded-lg shadow-lg w-96 text-center">
 
         <h2 class="text-lg font-bold mb-4">Confirm Deletion</h2>
-        <p class="mb-6 text-gray-600">Are you sure you want to delete this article?</p>
+        <p class="mb-6 text-gray-600">Are you sure you want to delete this User?</p>
 
         <form id="deleteForm" method="POST">
             @csrf

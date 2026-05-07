@@ -11,23 +11,14 @@ return [
 
     'domain_model' => Domain::class,
 
-    /**
-     * The list of domains hosting your central app.
-     *
-     * Only relevant if you're using the domain or subdomain identification middleware.
-     */
+    
     'central_domains' => [
         '127.0.0.1',
         'localhost',
         'articles.local',
     ],
 
-    /**
-     * Tenancy bootstrappers are executed when tenancy is initialized.
-     * Their responsibility is making Laravel features tenant-aware.
-     *
-     * To configure their behavior, see the config keys below.
-     */
+    
     'bootstrappers' => [
         Stancl\Tenancy\Bootstrappers\DatabaseTenancyBootstrapper::class,
         Stancl\Tenancy\Bootstrappers\CacheTenancyBootstrapper::class,
@@ -36,27 +27,18 @@ return [
         // Stancl\Tenancy\Bootstrappers\RedisTenancyBootstrapper::class, // Note: phpredis is needed
     ],
 
-    /**
-     * Database tenancy config. Used by DatabaseTenancyBootstrapper.
-     */
+
     'database' => [
        'central_connection' => 'mysql',
-        /**
-         * Connection used as a "template" for the dynamically created tenant database connection.
-         * Note: don't name your template connection tenant. That name is reserved by package.
-         */
+    
        'template_tenant_connection' => null,
 
-        /**
-         * Tenant database names are created like this:
-         * prefix + tenant_id + suffix.
-         */
+  
         'prefix' => '',
         'suffix' => '',
 
-        /**
-         * TenantDatabaseManagers are classes that handle the creation & deletion of tenant databases.
-         */
+    
+
         'managers' => [
             'sqlite' => Stancl\Tenancy\TenantDatabaseManagers\SQLiteDatabaseManager::class,
             'mysql' => Stancl\Tenancy\TenantDatabaseManagers\MySQLDatabaseManager::class,
@@ -77,19 +59,9 @@ return [
         ],
     ],
 
-    /**
-     * Cache tenancy config. Used by CacheTenancyBootstrapper.
-     *
-     * This works for all Cache facade calls, cache() helper
-     * calls and direct calls to injected cache stores.
-     *
-     * Each key in cache will have a tag applied on it. This tag is used to
-     * scope the cache both when writing to it and when reading from it.
-     *
-     * You can clear cache selectively by specifying the tag.
-     */
+    
     'cache' => [
-        'tag_base' => 'tenant', // This tag_base, followed by the tenant_id, will form a tag that will be applied on each cache call.
+        'tag_base' => 'tenant', 
     ],
 
     /**
