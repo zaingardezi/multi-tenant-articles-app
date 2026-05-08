@@ -29,7 +29,7 @@
                 <td class="text-center">{{ $article->id }}</td>
                 <td class="text-center">{{ $article->Title }}</td>
                 <td class="text-center">{{ $article->ShowDescription }}</td>
-                <td>
+                <td style="display: flex; justify-content: center; align-items: center;">
                     @if(Str::startsWith($article->Image, 'http'))
     <img src="{{ $article->Image }}" width="300">
 @else
@@ -38,12 +38,12 @@
                 </td>
             <td>
                 <div style="display: flex; flex-direction: row;">
-                @can('view articles')   
+                @can('view articles')
                 <button onclick="window.location='{{ route('articles.view',$article) }}'" class="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded">View</button>
-                @endcan    
+                @endcan
                 @can('edit articles')
                 <button onclick="window.location='{{ route('articles.edit',$article) }}'" class="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded">Edit</button>
-                @endcan    
+                @endcan
                 @can('delete articles')
                  <button
     type="button"
